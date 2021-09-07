@@ -4,6 +4,7 @@ var pLength = 0;
 // Write password to the #password input
 function writePassword() {
 	var password = generatePassword();
+	if (!password) password = "";
 	var passwordText = document.querySelector("#password");
 
 	passwordText.value = password;
@@ -26,6 +27,15 @@ function generatePassword() {
 		generatePassword();
 	}
 	pLength = Number(pLengthStr);
+
+	if (pLength > 128 || pLength < 8) {
+		alert("Invalid password length! Password must 8-128 characters long");
+		var tryagain = confirm(
+			"Please select atleast one criteria.Do you want to try again?"
+		);
+		if (tryagain) generatePassword();
+		else return false;
+	}
 	//2. Character type -lowercase
 	var lcase = confirm(
 		"Do you want to include lowercase characters in your password?"
