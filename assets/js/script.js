@@ -3,9 +3,10 @@ var generateBtn = document.querySelector("#generate");
 var pLength = 0;
 // Write password to the #password input
 function writePassword() {
+	var passwordText = document.querySelector("#password");
+	passwordText.value = "";
 	var password = generatePassword();
 	if (!password) password = "";
-	var passwordText = document.querySelector("#password");
 
 	passwordText.value = password;
 }
@@ -22,6 +23,8 @@ function generatePassword() {
 	var pLengthStr = prompt(
 		"Please enter length of the new password. Length should be between 8 to 128 characters"
 	);
+	console.log(pLengthStr);
+	if (pLengthStr != null) pLengthStr = pLengthStr.trim();
 	if (isNaN(pLengthStr)) {
 		alert("Invalid password length, Please try again.");
 		generatePassword();
@@ -29,10 +32,8 @@ function generatePassword() {
 	pLength = Number(pLengthStr);
 
 	if (pLength > 128 || pLength < 8) {
-		alert("Invalid password length! Password must 8-128 characters long");
-		var tryagain = confirm(
-			"Please select atleast one criteria.Do you want to try again?"
-		);
+		alert("Invalid password length! Password must 8-128 characters .");
+		var tryagain = confirm("Do you want to try again?");
 		if (tryagain) generatePassword();
 		else return false;
 	}
@@ -44,7 +45,7 @@ function generatePassword() {
 		c++;
 		characterString += lcaseString;
 	}
-	console.log(lcase);
+	//console.log(lcase);
 
 	//3. Character type -uppercase
 	var ucase = confirm(
@@ -54,13 +55,13 @@ function generatePassword() {
 		c++;
 		characterString += ucaseString;
 	}
-	console.log(ucase);
+	//	console.log(ucase);
 
 	//4. Character type -numeric
 	var numeric = confirm(
 		"Do you want to include Numeric characters in your password?"
 	);
-	console.log(numeric);
+	//	console.log(numeric);
 	if (numeric) {
 		c++;
 		characterString += numbers;
@@ -69,7 +70,7 @@ function generatePassword() {
 	var special = confirm(
 		"Do you want to include Special characters in your password?"
 	);
-	console.log(special);
+	//	console.log(special);
 	if (special) {
 		c++;
 		characterString += specialChars;
@@ -83,7 +84,7 @@ function generatePassword() {
 	}
 
 	var limit = parseInt(pLength / c);
-	console.log(pLength + " " + c + " " + limit);
+	//	console.log(pLength + " " + c + " " + limit);
 
 	//random lcase length
 	if (lcase) {
@@ -97,45 +98,35 @@ function generatePassword() {
 	}
 
 	if (special) {
-		console.log(specialChars);
+		//		console.log(specialChars);
 		getCharacters(limit, specialChars);
 	}
 	var remaining = pLength - password.length;
 	for (var i = 0; i < remaining; i++) {
 		var index = Math.floor(Math.random() * characterString.length);
-		console.log("index = " + index);
+		//	console.log("index = " + index);
 		password += characterString.charAt(index);
 	}
-	console.log("password so far length" + password.length);
-	console.log("length remaining = " + remaining);
-	console.log("final password = " + password);
+	//	console.log("password so far length" + password.length);
+	//	console.log("length remaining = " + remaining);
+	//	console.log("final password = " + password);
 	password = shuffleStringChars(password);
 	return password;
 }
 
-function getLowerCaseLetters(divider) {
-	var lcaseLength = Math.floor(Math.random() * divider);
-	console.log("LowerCase length = " + lcaseLength);
-	var lcaseString = "abcdefghijklmnopqrstuvwxyz";
-	for (var i = 0; i < lcaseLength; i++) {
-		var index = Math.floor(Math.random() * 26);
-		console.log("lowercase char at index = " + index);
-		password += lcaseString.charAt(index);
-	}
-	console.log("password so far = " + password);
-}
-
+//Function to get characters as per selected character type
 function getCharacters(divider, str) {
 	var charTypeLength = Math.floor(Math.random() * divider) + 1;
-	console.log("charTypeLength = " + charTypeLength);
+	//	console.log("charTypeLength = " + charTypeLength);
 	for (var i = 0; i < charTypeLength; i++) {
 		var index = Math.floor(Math.random() * str.length);
-		console.log("index = " + index);
+		//		console.log("index = " + index);
 		password += str.charAt(index);
 	}
-	console.log("password so far = " + password);
+	//	console.log("password so far = " + password);
 }
 
+//Shuffle the password characters for enhanced security.
 function shuffleStringChars(arg) {
 	var str = arg
 		.split("")
@@ -143,8 +134,9 @@ function shuffleStringChars(arg) {
 			return 0.5 - Math.random();
 		})
 		.join("");
-	console.log(arg);
+	//	console.log(arg);
 	return str;
 }
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
