@@ -45,7 +45,7 @@ function generatePassword() {
 		c++;
 		characterString += lcaseString;
 	}
-	//console.log(lcase);
+	console.log(lcase);
 
 	//3. Character type -uppercase
 	var ucase = confirm(
@@ -55,13 +55,13 @@ function generatePassword() {
 		c++;
 		characterString += ucaseString;
 	}
-	//	console.log(ucase);
+	console.log(ucase);
 
 	//4. Character type -numeric
 	var numeric = confirm(
 		"Do you want to include Numeric characters in your password?"
 	);
-	//	console.log(numeric);
+	console.log(numeric);
 	if (numeric) {
 		c++;
 		characterString += numbers;
@@ -70,7 +70,7 @@ function generatePassword() {
 	var special = confirm(
 		"Do you want to include Special characters in your password?"
 	);
-	//	console.log(special);
+	console.log(special);
 	if (special) {
 		c++;
 		characterString += specialChars;
