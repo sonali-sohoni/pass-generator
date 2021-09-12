@@ -10,11 +10,13 @@ function writePassword() {
 
 	passwordText.value = password;
 }
+
 var password = "";
 var specialChars = " !\"#$&%'()*+,-./:;<=>?@[]-`{|}~";
 var lcaseString = "abcdefghijklmnopqrstuvwxyz";
 var ucaseString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numbers = "0123456789";
+
 function generatePassword() {
 	var c = 0;
 	password = "";
@@ -27,16 +29,20 @@ function generatePassword() {
 	if (pLengthStr != null) pLengthStr = pLengthStr.trim();
 	if (isNaN(pLengthStr)) {
 		alert("Invalid password length, Please try again.");
-		generatePassword();
+		return false;
 	}
 	pLength = Number(pLengthStr);
 
 	if (pLength > 128 || pLength < 8) {
-		alert("Invalid password length! Password must 8-128 characters .");
-		var tryagain = confirm("Do you want to try again?");
-		if (tryagain) generatePassword();
-		else return false;
+		alert(
+			"Invalid password length! Password must 8-128 characters. Please try again"
+		);
+		//	var tryagain = alert("");
+		//		if (tryagain) generatePassword();
+		//		else
+		return false;
 	}
+
 	//2. Character type -lowercase
 	var lcase = confirm(
 		"Do you want to include lowercase characters in your password?"
@@ -76,11 +82,10 @@ function generatePassword() {
 		characterString += specialChars;
 	}
 	if (c === 0) {
-		var tryagain = confirm(
-			"Please select atleast one criteria.Do you want to try again?"
-		);
-		if (tryagain) generatePassword();
-		else return false;
+		alert("Please select atleast one criteria.Please try again");
+		//if (tryagain) generatePassword();
+		//else
+		return false;
 	}
 
 	var limit = parseInt(pLength / c);
